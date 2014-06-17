@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyJavaScripts\TitleGUI.js">
+    <Files>
+      <File FileName="Assets\MyJavaScripts\BulletAI.js" Line="1" Column="1" />
+      <File FileName="Assets\MyJavaScripts\GUITest.js" Line="1" Column="1" />
+      <File FileName="Assets\MyJavaScripts\CannonAI.js" Line="1" Column="1" />
+      <File FileName="Assets\MyJavaScripts\BulletAI.js" Line="1" Column="1" />
+      <File FileName="Assets\MyJavaScripts\TouchControls.js" Line="1" Column="1" />
+      <File FileName="Assets\MyJavaScripts\TitleGUI.js" Line="37" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
