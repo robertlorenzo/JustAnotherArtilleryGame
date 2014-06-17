@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\BulletAI.js">
+    <Files>
+      <File FileName="Assets\MyScripts\BulletAI.js" Line="47" Column="26" />
+      <File FileName="Assets\MyScripts\CannonAI.js" Line="12" Column="71" />
+      <File FileName="Assets\MyScripts\SpaceshipAI.js" Line="10" Column="67" />
+      <File FileName="Assets\MyScripts\GUITest.js" Line="7" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
