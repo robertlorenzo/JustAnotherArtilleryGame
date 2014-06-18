@@ -14,7 +14,8 @@ var startPos : float;			// starting position
 var randPos : float;			// random number for x position
 var xPos : float;				// x position from randPos
 var smokeCase : int;			// for deciding which smoke to use
-var smokeLoc: Transform;					// position of the smoke
+var smokeLoc: Transform;		// position of the smoke
+var scaleVar : float;
 
 private var ySpeed: float;					// speed for lowering the spaceship
 private var xSpeed: float;					// speed for moving the spaceship side to side
@@ -22,16 +23,26 @@ private var deltaY: float;					// Y position divided by 4, to move the ship down
 private var deltaX: float;					// the change in x direction, unknown 
 private var newPos: float;					// new position of the ship, to move the ship down when it gets hit
 private var firePos: Vector3;				// position of the fire
+private var cannonTarget : GameObject;		// the cannon GameObject
 private var bulletScript: BulletAI; 		// this is used to access the script inside a bullet.
 private var guiScript: GUITest;				// this is used to access the script for the GUI
+private var cannonScript : CannonAI;		// this is used to access the script for the cannon
 private var explosionInstance : Transform;	// instantiated explosion
 private var smokeInstance: Transform;		// instanciated smoke
 
+function Awake ()
+{
+	cannonTarget = GameObject.FindGameObjectWithTag("Cannon");		//cannon object
+	if (cannonTarget == null){
+		print ("no cannon on Spaceship");
+	}
+}
 function Start () {
 	guiScript = Camera.main.GetComponent(GUITest);
 	if (guiScript == null){
 		print ("guiScript is null on Spaceship");
 	}
+	cannonScript = cannonTarget.GetComponent(CannonAI);		// script for cannon
 	// get a random number from -100 to 100. divide that number by 100 to get a decimal
 	randPos = (Random.Range(-100.0, 100.0))/100.0;
 	if (randPos > 0){
@@ -40,10 +51,20 @@ function Start () {
 		randPos -= 1;
 	}
 	transform.position.x = randPos;	// random starting x position
-	transform.position.y += 40;		// starting position is y + 40	
-	startPos = transform.position.y;
-	deltaY = transform.position.y / 4;	// variable to move ship down 1/4 of height
+	StartPosition();
 }	// end Start()
+
+function StartPosition()
+{
+	var f_startRand : float = (Random.Range(0.0, 100.0))/ 100.0;
+	var f_startPos : float = f_startRand * 25.0;
+	f_startPos = f_startPos + 75.0;
+	var f_startPercentage : float = f_startPos / 100.0;
+	Debug.Log(f_startPercentage * 50);
+	startPos = f_startPercentage * 50.0;
+	transform.position.y += startPos;
+	deltaY = transform.position.y / 4;	// variable to move ship down 1/4 of height
+}
 
 function HitShip ()
 {
@@ -92,6 +113,16 @@ function KillSmoke(){
 	Destroy(smokeInstance.gameObject);
 }
 function Update() {
+	if(cannonScript.firstShot == false)
+	{
+		scaleVar = 1.0 + Mathf.PingPong(Time.time * 1.5, 1.0);
+		transform.localScale = Vector3(scaleVar, scaleVar, scaleVar);
+	}
+	else
+	{
+		transform.localScale = Vector3.one;
+	}
+	
 	transform.Rotate(Vector3.up, Time.deltaTime * 80);
 	
 	if (xPos > transform.position.x){

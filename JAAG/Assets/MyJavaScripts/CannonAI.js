@@ -10,14 +10,15 @@
 // Further Modified For Senior Project Preperation
 // July 2013
 
-var bullet: Transform;	// this is prefabed bullet
-var speed: int;			// speed of the bullet
-var xRot: float;		// for rotation of the "target" along x axis
-var yRot: float;		// for rotation of the "target" along y axis
-var counter: int = 10;	// count how many times the cannon can be fired
-var gameOver : boolean;		// game over state
-var shootTime : float;			// variable to make sure there is only one cannonball on screen
-var cannonFireSound : AudioClip;	// sound clip for when the cannon fires
+var bullet: Transform;					// this is prefabed bullet
+var speed: int;							// speed of the bullet
+var xRot: float;						// for rotation of the "target" along x axis
+var yRot: float;						// for rotation of the "target" along y axis
+var shotCounter: int = 10;				// count how many times the cannon can be fired
+var gameOver : boolean;					// game over state
+var shootTime : float;					// variable to make sure there is only one cannonball on screen
+var cannonFireSound : AudioClip;		// sound clip for when the cannon fires
+var firstShot : boolean;				// has the first shot been fired?
 
 private var bulletScript: BulletAI; 	// this is used to access the script inside a bullet.
 private var guiScript: GUITest;			// this is used to access the GUI script
@@ -27,7 +28,7 @@ function Start()
 {
 	guiScript = Camera.main.GetComponent(GUITest);	// get the script
 	shootTime = 120;
-	
+	firstShot = false;
 }	// end Start()
 
 function Update () 
@@ -44,7 +45,7 @@ function Update ()
 	
 	shootTime++;		// 24 fps * 3 seconds = 72 for FireCannon()
 	
-	if (hitCounter < 4 && counter > 0) //To end the round
+	if (hitCounter < 4 && shotCounter > 0) //To end the round
 		gameOver = false;
 	else
 		gameOver = true;
@@ -54,6 +55,7 @@ function FireCannon()
 {
 	if (gameOver==false && shootTime >= 72)
 	{
+		firstShot = true;
 		PlaySound(cannonFireSound);
 		
 		var bulletInstance: Transform = Instantiate(bullet, transform.position, Quaternion.identity);

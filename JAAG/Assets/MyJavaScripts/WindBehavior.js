@@ -10,7 +10,7 @@ var numRand : float;				// setting the random number for the wind
 var f_score : float;				// score made into a float;
 var wind : float;					// wind for bullet and shadows
 var shadowScript : MovingShadows;	// for getting the moving shadows script
-//var shadowObj : GameObject;			// for setting the wind var on the moving shadows
+//var shadowObj : GameObject;		// for setting the wind var on the moving shadows
 var guiScript : GUITest;			//for getting the score from GUITest
 
 function Start () {

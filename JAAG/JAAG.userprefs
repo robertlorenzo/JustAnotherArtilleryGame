@@ -1,13 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyJavaScripts\TitleGUI.js">
     <Files>
-      <File FileName="Assets\MyJavaScripts\BulletAI.js" Line="1" Column="1" />
-      <File FileName="Assets\MyJavaScripts\GUITest.js" Line="1" Column="1" />
-      <File FileName="Assets\MyJavaScripts\CannonAI.js" Line="1" Column="1" />
-      <File FileName="Assets\MyJavaScripts\BulletAI.js" Line="1" Column="1" />
-      <File FileName="Assets\MyJavaScripts\TouchControls.js" Line="1" Column="1" />
-      <File FileName="Assets\MyJavaScripts\TitleGUI.js" Line="37" Column="22" />
+      <File FileName="Assets\MyJavaScripts\BulletAI.js" Line="93" Column="27" />
+      <File FileName="Assets\MyJavaScripts\WindBehavior.js" Line="13" Column="32" />
+      <File FileName="Assets\Standard Assets\MyC#Scripts\MovingShadows.cs" Line="6" Column="3" />
+      <File FileName="Assets\MyJavaScripts\GUITest.js" Line="76" Column="75" />
+      <File FileName="Assets\MyJavaScripts\CannonAI.js" Line="58" Column="20" />
+      <File FileName="Assets\MyJavaScripts\SpaceshipAI.js" Line="125" Column="2" />
+      <File FileName="Assets\MyJavaScripts\TitleGUI.js" Line="41" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

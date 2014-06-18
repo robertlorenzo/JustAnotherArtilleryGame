@@ -88,7 +88,7 @@ function OnGUI(){
 	
 	if (endRound == false){
 		// Draw a label for ammo
-		count1 = cannonScript.counter;
+		count1 = cannonScript.shotCounter;
 		for (var a = 0; a < count1; a++)
 		{
 			GUI.Label (Rect((10 + (12*a)), 5, ammoLabelX, labelY), bulletTexture);
@@ -240,10 +240,11 @@ function ResetLevel(){
 	score++;
 	yRotSlider = 0;
 	xRotSlider = 10;
-	cannonScript.counter = 10;
+	cannonScript.shotCounter = 10;
 	spaceshipScript.counterH = 0;
 	shipTarget.renderer.enabled = true;
-	shipTarget.transform.position.y = spaceshipScript.startPos;
+	//shipTarget.transform.position.y = spaceshipScript.startPos;
+	spaceshipScript.StartPosition();
 	spaceshipScript.KillFire();
 	windScript.Windage();
 	colorScript.SetColor();

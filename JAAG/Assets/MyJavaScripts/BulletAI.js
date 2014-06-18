@@ -68,7 +68,7 @@ function Update ()
 	// destroy the bullet if it is under the ground
 	if (transform.position.y <= -1)
 	{	
-		cannonScript.counter --;
+		cannonScript.shotCounter --;
 		guiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"
 		Destroy(gameObject);  // destroy the bullet
 	}	// end if
@@ -78,19 +78,19 @@ function OnTriggerEnter (other : Collider)
 {
 	if (other.transform.tag == "Terrain")
 	{
-		cannonScript.counter --;
+		cannonScript.shotCounter --;
 		cannonScript.PlaySound(terrainHit);
 		var explosionInstance: Transform = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 		Destroy(explosionInstance.gameObject, 3);
 		Destroy(gameObject);
 		if (guiTestScript.level == 1)
 		{
-			guiScript.MakeFalse();
+			guiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
 		}
 	}
 	if (other.transform.tag == "Spaceship")
 	{
-		cannonScript.counter --;
+		cannonScript.shotCounter --;
 		cannonScript.PlaySound(shipHit);
 		//instantiate fireworks prefab for a destructive effect
 		var fireworksInstance: Transform = Instantiate(fireworksPrefab, transform.position, Quaternion.identity);
@@ -99,7 +99,7 @@ function OnTriggerEnter (other : Collider)
 		Destroy(gameObject);
 		if (guiTestScript.level == 1)
 		{
-			guiScript.MakeFalse();
+			guiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
 		}
 	}
 }	// end OnTriggerEnter()

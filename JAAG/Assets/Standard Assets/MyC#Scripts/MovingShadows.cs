@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+//I was having internal compiler issues.
+//Uncommenting this and commenting this back out was making it go away so I left it
+//class CompileBreaker { int i = 0 / 0;}
+
 public class MovingShadows : MonoBehaviour {
 	public float windSpeedX;
 	public float windSpeedZ;
