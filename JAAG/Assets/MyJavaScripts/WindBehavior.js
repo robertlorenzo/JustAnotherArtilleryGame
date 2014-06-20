@@ -11,10 +11,10 @@ var f_score : float;				// score made into a float;
 var wind : float;					// wind for bullet and shadows
 var shadowScript : MovingShadows;	// for getting the moving shadows script
 //var shadowObj : GameObject;		// for setting the wind var on the moving shadows
-var guiScript : GUITest;			//for getting the score from GUITest
+var guiScript : MainGUI;			//for getting the score from MainGUI
 
 function Start () {
-	guiScript = Camera.main.GetComponent(GUITest);
+	guiScript = Camera.main.GetComponent(MainGUI);
 	if (guiScript == null){
 		print ("No guiScript for windage.");
 	}

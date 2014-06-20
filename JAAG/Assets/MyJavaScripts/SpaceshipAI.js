@@ -25,7 +25,7 @@ private var newPos: float;					// new position of the ship, to move the ship dow
 private var firePos: Vector3;				// position of the fire
 private var cannonTarget : GameObject;		// the cannon GameObject
 private var bulletScript: BulletAI; 		// this is used to access the script inside a bullet.
-private var guiScript: GUITest;				// this is used to access the script for the GUI
+private var guiScript: MainGUI;				// this is used to access the script for the GUI
 private var cannonScript : CannonAI;		// this is used to access the script for the cannon
 private var explosionInstance : Transform;	// instantiated explosion
 private var smokeInstance: Transform;		// instanciated smoke
@@ -38,7 +38,7 @@ function Awake ()
 	}
 }
 function Start () {
-	guiScript = Camera.main.GetComponent(GUITest);
+	guiScript = Camera.main.GetComponent(MainGUI);
 	if (guiScript == null){
 		print ("guiScript is null on Spaceship");
 	}

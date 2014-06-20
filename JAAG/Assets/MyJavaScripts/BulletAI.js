@@ -26,8 +26,8 @@ var terrainHit : AudioClip;		// audio for when the buttle hits the terrain
 private var velocity: Vector3; 
 private var gravityForce: Vector3;
 private var shipScript: SpaceshipAI;	// accessing spaceshipAI
-private var guiScript: PingPongGUI;		// accessing PingPongGUI
-private var guiTestScript: GUITest;		// accessing GUITest
+private var ppGuiScript: PingPongGUI;	// accessing PingPongGUI
+private var mainGuiScript: MainGUI;		// accessing MainGUI
 private var windScript : WindBehavior;	// accessing WindBehavior
 private var cannonScript: CannonAI;		// accessing cannonAI
 
@@ -48,8 +48,8 @@ function Start ()
 	}
 	shipScript = shipTar.GetComponent(SpaceshipAI);		// get the script
 	windScript = lightObj.GetComponent(WindBehavior);	// get the script
-	guiScript = Camera.main.GetComponent(PingPongGUI);	// get the script
-	guiTestScript = Camera.main.GetComponent(GUITest);	// get the script
+	ppGuiScript = Camera.main.GetComponent(PingPongGUI);	// get the script
+	mainGuiScript = Camera.main.GetComponent(MainGUI);	// get the script
 	cannonScript = cannon.GetComponent(CannonAI);		// get the script
 	
 	transform.position = startLocation.position; 
@@ -69,7 +69,7 @@ function Update ()
 	if (transform.position.y <= -1)
 	{	
 		cannonScript.shotCounter --;
-		guiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"
+		ppGuiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"
 		Destroy(gameObject);  // destroy the bullet
 	}	// end if
 }	// end Update()
@@ -83,9 +83,9 @@ function OnTriggerEnter (other : Collider)
 		var explosionInstance: Transform = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 		Destroy(explosionInstance.gameObject, 3);
 		Destroy(gameObject);
-		if (guiTestScript.level == 1)
+		if (mainGuiScript.level == 1)
 		{
-			guiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
+			ppGuiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
 		}
 	}
 	if (other.transform.tag == "Spaceship")
@@ -97,9 +97,9 @@ function OnTriggerEnter (other : Collider)
 		Destroy(fireworksInstance.gameObject, 1);
 		shipScript.HitShip();
 		Destroy(gameObject);
-		if (guiTestScript.level == 1)
+		if (mainGuiScript.level == 1)
 		{
-			guiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
+			ppGuiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
 		}
 	}
 }	// end OnTriggerEnter()

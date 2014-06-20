@@ -21,26 +21,26 @@ var cannonFireSound : AudioClip;		// sound clip for when the cannon fires
 var firstShot : boolean;				// has the first shot been fired?
 
 private var bulletScript: BulletAI; 	// this is used to access the script inside a bullet.
-private var guiScript: GUITest;			// this is used to access the GUI script
+private var guiScript: MainGUI;			// this is used to access the GUI script
 private var hitCounter: int;			// count how many times the spaceship gets hit
 
 function Start()
 {
-	guiScript = Camera.main.GetComponent(GUITest);	// get the script
+	guiScript = Camera.main.GetComponent(MainGUI);	// get the script
 	shootTime = 120;
 	firstShot = false;
 }	// end Start()
 
 function Update () 
 {	
-	hitCounter = guiScript.count2;	// how many times the spaceship has been hit
+	hitCounter = guiScript.hitCount;	// how many times the spaceship has been hit
 	
 	// value of the horizonal angle slider to control rotation of the cannon
-	xRot = guiScript.xRotSlider;					
+	xRot = guiScript.verticalSlider;					
 	transform.localEulerAngles.x = (-1 * xRot);	// rotate cannon
 	
 	// value of the vertical angle slider to control elevation of the cannon
-	yRot= guiScript.yRotSlider;
+	yRot= guiScript.horizontalSlider;
 	transform.localEulerAngles.y = yRot;	// rotate cannon 
 	
 	shootTime++;		// 24 fps * 3 seconds = 72 for FireCannon()

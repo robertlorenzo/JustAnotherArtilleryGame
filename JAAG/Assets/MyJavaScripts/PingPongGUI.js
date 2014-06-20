@@ -7,7 +7,7 @@ var cannonTarget: GameObject;	// get the cannon
 var customSkin: GUISkin;		// custom GUI skin
 
 private var cannonScript: CannonAI;		// access CannonAI script
-private var guiScript: GUITest;			// access GUITest script
+private var guiScript: MainGUI;			// access MainGUI script
 private var moveX;
 private var moveY;
 private var checkX : boolean = false;
@@ -20,7 +20,7 @@ function Start(){
 	if (cannonTarget == null){ print ("no cannon for PingPong"); }
 	cannonScript = cannonTarget.GetComponent(CannonAI);		// script for cannon
 	
-	guiScript = Camera.main.GetComponent(GUITest);	// get the script
+	guiScript = Camera.main.GetComponent(MainGUI);	// get the script
 }
 
 function OnGUI() {

@@ -42,10 +42,10 @@ function OnGUI(){
 	GUI.Label(Rect(0, screenY - 100, screen2X, 100), "J.A.A.G.\n(Just Another Artillery Game)", GUI.skin.GetStyle("Title"));
 	
 	if (GUI.Button(Rect(5, screenY + 50, screen2X/3-10, 100), "Test\nyour\naim")){
-		Application.LoadLevel("PlayerControlled_NoShadows");
+		Application.LoadLevel("PlayerControlled");
 	}
 	if (GUI.Button(Rect((screen2X/3)+5, screenY + 50, screen2X/3-10, 100), "Test\nyour\nreflexes")){
-		Application.LoadLevel("PingPongControlled_NoShadows");
+		Application.LoadLevel("PingPongControlled");
 	}
 	if (GUI.Button(Rect(((screen2X/3)*2)+5, screenY + 50, screen2X/3-10, 100), "Instructions")){
 		Application.LoadLevel("Instructions");

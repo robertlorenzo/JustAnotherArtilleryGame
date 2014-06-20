@@ -48,8 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\MyJavaScripts\BulletAI.js" />
      <Compile Include="Assets\MyJavaScripts\CannonAI.js" />
-     <Compile Include="Assets\MyJavaScripts\GUITest.js" />
      <Compile Include="Assets\MyJavaScripts\InstructionsGUI.js" />
+     <Compile Include="Assets\MyJavaScripts\MainGUI.js" />
      <Compile Include="Assets\MyJavaScripts\MyUnitySingleton.js" />
      <Compile Include="Assets\MyJavaScripts\PingPongGUI.js" />
      <Compile Include="Assets\MyJavaScripts\RandomColor.js" />
