@@ -1,28 +1,21 @@
 @script RequireComponent(AudioSource)
 #pragma strict
-// Robert Lorenzo
-
-// this code is to control a bullet flyinng from a cannon.
-// by Dr. Wei Xu (Modified by Robert Lorenzo)
-// for Game Physics class
-// Summer'12 (Modified Feb 13)
-
-// Further Modified For Senior Project Preperation
-// July 2013
+//Robert Lorenzo
+//this code is to control the bullet shot from the cannon.
 
 var startLocation:Transform;   	// the location of bullet when it is shot. 
 var explosionPrefab: Transform; // an explosion prefab
 var fireworksPrefab: Transform;	// a fireworks prefab
-var shipTar: GameObject;		// spaceship object
-var cannon: Transform;   		// the cannon to shoot
+var cannon: Transform;   		// the cannon to shoot from
 var speed: float = 1;			// speed of the bullet; assigned by the cannon
-var windForce: Vector3;			// assigned by WindBehavior.js
-var allForces: Vector3;			// wind + gravity
-var lightObj : GameObject;		// obj holding the wind script
-var smokeLoc : GameObject;		// location of smoke or fireworksto be emitted
 var shipHit : AudioClip;		// audio for when the bullet hits the ship
 var terrainHit : AudioClip;		// audio for when the buttle hits the terrain
 
+private var level : int;
+private var spaceship: GameObject;		// spaceship object
+private var windForce: Vector3;			// assigned by WindBehavior.js
+private var allForces: Vector3;			// wind + gravity
+private var lightObj : GameObject;		// obj holding the wind script
 private var velocity: Vector3; 
 private var gravityForce: Vector3;
 private var shipScript: SpaceshipAI;	// accessing spaceshipAI
@@ -33,73 +26,98 @@ private var cannonScript: CannonAI;		// accessing cannonAI
 
 function Start () 
 {
-	shipTar = GameObject.FindGameObjectWithTag("Spaceship");	//Assign spaceship
-	if (shipTar == null)
+	GetGameobjects();
+	GetScripts();
+	GetForces();
+	GetLevel();
+}
+
+function Update () 
+{
+	MoveTheBullet();
+	
+	if (transform.position.y <= -1)
+	{	
+		BulletCleanup("Under Terrain");
+	}
+}
+
+function OnTriggerEnter (other : Collider)
+{
+	BulletCleanup(other.transform.tag);
+}
+
+function GetGameobjects()
+{
+	spaceship = GameObject.FindGameObjectWithTag("Spaceship");	//Assign spaceship
+	if (spaceship == null)
 	{
-		print("no ship");
+		Debug.Log("No spaceship on bullet.");
 	}
 	lightObj = GameObject.FindGameObjectWithTag("ShadowLight");	//Assign Light
 	if (lightObj == null){
-		print ("no lightObj");
+		Debug.Log("No lightObj on bullet.");
 	}
-	smokeLoc = GameObject.FindGameObjectWithTag("SmokeLoc");	// Assign smoke location
-	if (smokeLoc == null){
-		print ("No smokeLoc for bullet");
-	}
-	shipScript = shipTar.GetComponent(SpaceshipAI);		// get the script
-	windScript = lightObj.GetComponent(WindBehavior);	// get the script
+}
+
+function GetScripts()
+{
+	shipScript = spaceship.GetComponent(SpaceshipAI);		// get the script
+	windScript = lightObj.GetComponent(WindBehavior);		// get the script
 	ppGuiScript = Camera.main.GetComponent(PingPongGUI);	// get the script
-	mainGuiScript = Camera.main.GetComponent(MainGUI);	// get the script
-	cannonScript = cannon.GetComponent(CannonAI);		// get the script
-	
-	transform.position = startLocation.position; 
+	mainGuiScript = Camera.main.GetComponent(MainGUI);		// get the script
+	cannonScript = cannon.GetComponent(CannonAI);			// get the script
+}
+
+function GetForces()
+{
 	velocity = speed * cannon.forward;
 	gravityForce = Vector3(0, -50, 0);
 	windForce = Vector3(windScript.wind, 0, 0);
 	allForces = (windForce + gravityForce);
-	//print ("All forces: " + allForces);  
-}	// end Start()
+}
 
-function Update () 
+function GetLevel()
+{
+	level = Application.loadedLevel;
+}
+
+function MoveTheBullet()
 {
 	velocity += allForces * Time.deltaTime;
-	transform.position += velocity * Time.deltaTime;	
-	
-	// destroy the bullet if it is under the ground
-	if (transform.position.y <= -1)
-	{	
-		cannonScript.shotCounter --;
-		ppGuiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"
-		Destroy(gameObject);  // destroy the bullet
-	}	// end if
-}	// end Update()
+	transform.position += velocity * Time.deltaTime;
+}
 
-function OnTriggerEnter (other : Collider)
+function BulletCleanup(where : String)
 {
-	if (other.transform.tag == "Terrain")
+	if(where=="Spaceship")
 	{
-		cannonScript.shotCounter --;
-		cannonScript.PlaySound(terrainHit);
-		var explosionInstance: Transform = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-		Destroy(explosionInstance.gameObject, 3);
-		Destroy(gameObject);
-		if (mainGuiScript.level == 1)
-		{
-			ppGuiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
-		}
-	}
-	if (other.transform.tag == "Spaceship")
-	{
-		cannonScript.shotCounter --;
-		cannonScript.PlaySound(shipHit);
-		//instantiate fireworks prefab for a destructive effect
-		var fireworksInstance: Transform = Instantiate(fireworksPrefab, transform.position, Quaternion.identity);
-		Destroy(fireworksInstance.gameObject, 1);
 		shipScript.HitShip();
-		Destroy(gameObject);
-		if (mainGuiScript.level == 1)
-		{
-			ppGuiScript.MakeFalse();//to ping pong the sliders in "Test your reflexes"
-		}
+		cannonScript.PlaySound(shipHit);
+		Fireworks();
 	}
-}	// end OnTriggerEnter()
+	else if(where == "Terrain")
+	{
+		cannonScript.PlaySound(terrainHit);
+		Explosion();
+	}
+	if(level == 3 || level == 5)
+	{
+		ppGuiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"	
+	}
+	cannonScript.shotCounter --;
+	Destroy(gameObject);  // destroy the bullet
+	
+}
+
+function Explosion()
+{
+	var explosionInstance: Transform = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+	Destroy(explosionInstance.gameObject, 3);
+}
+
+function Fireworks()
+{
+	var fireworksInstance: Transform = Instantiate(fireworksPrefab, transform.position, Quaternion.identity);
+	Destroy(fireworksInstance.gameObject, 1);
+}
