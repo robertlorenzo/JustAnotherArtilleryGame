@@ -103,7 +103,10 @@ function BulletCleanup(where : String)
 	}
 	if(level == 3 || level == 5)
 	{
-		ppGuiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"	
+		if(ppGuiScript.CheckMoving())
+		{
+			ppGuiScript.MakeFalse(); //to ping pong the sliders in "Test your reflexes"	
+		}
 	}
 	cannonScript.shotCounter --;
 	Destroy(gameObject);  // destroy the bullet

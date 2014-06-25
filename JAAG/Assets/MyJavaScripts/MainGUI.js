@@ -6,7 +6,7 @@ var verticalSlider: float = 10.0;	// vertical slider on screen
 var horizontalSlider: float = 0.0;	// horizontal slider on screen
 var hitCount: int;					// number of hits on the ship
 var customSkin: GUISkin;			// custom GUI skin
-var score: int = 0;					// how many rounds the player has won, consecutive
+var score: int = 1;					// how many rounds the player has won, consecutive
 var level: int;						// the integer that corresponds to the level loaded
 var endRound : boolean;				// end of the round
 var bulletTexture : Texture2D;		// bullet image to display
@@ -130,7 +130,7 @@ function DrawScore(scoreLabelX : float, scoreLabelY : float, scoreLabelW : float
 
 function DrawHits(hitLabelX : float, hitLabelY : float, hitLabelW : float, hitLabelH : float, hitText : String)
 {
-	hitCount = spaceshipScript.counterH;
+	hitCount = spaceshipScript.hitCounter;
 	
 	GUI.Label(Rect(hitLabelX, hitLabelY, hitLabelW, hitLabelH), hitText + hitCount);
 }
@@ -239,9 +239,9 @@ function NextRound()
 	horizontalSlider = 0;
 	verticalSlider = 10;
 	cannonScript.shotCounter = 10;
-	spaceshipScript.counterH = 0;
+	spaceshipScript.hitCounter = 0;
 	shipTarget.renderer.enabled = true;
-	spaceshipScript.StartPosition();
+	spaceshipScript.StartPositionY();
 	spaceshipScript.KillFire();
 	windScript.Windage();
 	colorScript.SetColor();

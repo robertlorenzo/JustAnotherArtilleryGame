@@ -1,12 +1,6 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyJavaScripts\CannonAI.js">
-    <Files>
-      <File FileName="Assets\MyJavaScripts\CannonAI.js" Line="86" Column="2" />
-      <File FileName="Assets\MyJavaScripts\MainGUI.js" Line="93" Column="3" />
-      <File FileName="Assets\MyJavaScripts\SpaceshipAI.js" Line="12" Column="13" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

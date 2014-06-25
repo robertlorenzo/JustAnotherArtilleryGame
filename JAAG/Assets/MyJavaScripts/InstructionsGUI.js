@@ -13,59 +13,83 @@ var stopVScreen: Texture2D;
 var lArrow: Texture2D;
 var rArrow: Texture2D;
 
-var counter: int = 0;
+var customSkin : GUISkin;
 
-function OnGUI (){
-	switch(counter){
+private var counter: int = 0;
+
+function OnGUI ()
+{
+	GUI.skin = customSkin;
+	
+	switch(counter)
+	{
 		case 0:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), bulletScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(bulletScreen);
 			break;
 		case 1:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), scoreScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(scoreScreen);
 			break;
 		case 2:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), shipHitsScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(shipHitsScreen);
 			break;
 		case 3:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), shadowScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(shadowScreen);
 			break;
 		case 4:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), sliderVScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(sliderVScreen);
 			break;
 		case 5:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), sliderHScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(sliderHScreen);
 			break;
 		case 6:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), fireScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(fireScreen);
 			break;
 		case 7:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), stopVScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(stopVScreen);
 			break;
 		case 8:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), stopHScreen, ScaleMode.StretchToFill, true);
+			DrawInstructionSlide(stopHScreen);
 			break;
 		default:
-			GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), stopHScreen, ScaleMode.StretchToFill, true);
+			Application.LoadLevel(1);
 			break;	
 	}
-	
-	if (GUI.Button(Rect(Screen.width - 110, (Screen.height/2) - 120, 100, 80), rArrow, "Label")){
-		if (counter <= 7)
-			counter++;
-		else
-			counter = 0;
-	}
-	if (GUI.Button(Rect(110, (Screen.height/2) - 120, 100, 80), lArrow, "Label")){
-		if (counter >= 1)
+	LeftArrow();
+	RightArrow();
+	QuitButton();
+}
+
+function DrawInstructionSlide(slide : Texture2D)
+{
+	GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), slide, ScaleMode.StretchToFill, true);
+}
+
+function LeftArrow()
+{
+	if (GUI.Button(Rect(110, (Screen.height/2) - 120, 100, 80), lArrow, "Label"))
+	{
+		if (counter > 0)
 			counter--;
 		else
 			counter = 8;
 	}
-	if (GUI.Button(Rect(Screen.width - 100, Screen.height - 80, 100, 80), "Quit to\nmain menu")){
-		Application.LoadLevel(0);
+}
+
+function RightArrow()
+{
+	if (GUI.Button(Rect(Screen.width - 110, (Screen.height/2) - 120, 100, 80), rArrow, "Label"))
+	{
+		if (counter < 8)
+			counter++;
+		else
+			counter = 0;
 	}
 }
 
-function Update() {
-
+function QuitButton()
+{
+	if (GUI.Button(Rect(Screen.width - 160, Screen.height - 80, 160, 80), "Quit to\nmain menu"))
+	{
+		Application.LoadLevel(0);
+	}
 }

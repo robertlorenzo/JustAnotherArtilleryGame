@@ -77,7 +77,7 @@ function MoveCannon()
 
 function SetGameOver()
 {
-	hitCounter = spaceshipScript.counterH;	// how many times the spaceship has been hit
+	hitCounter = spaceshipScript.hitCounter;	// how many times the spaceship has been hit
 	
 	if (hitCounter < 4 && shotCounter > 0) //To end the round
 		gameOver = false;

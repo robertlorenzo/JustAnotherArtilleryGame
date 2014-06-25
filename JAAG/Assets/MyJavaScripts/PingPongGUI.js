@@ -1,25 +1,34 @@
 // Robert Lorenzo
-// GUI Script for cannon firing game level 2
-// For Senior Project Preperation
-// August 2013
+// This script will cause the sliders to move on their own during Test Your Reflexes mode
 
 var cannonTarget: GameObject;	// get the cannon
 var customSkin: GUISkin;		// custom GUI skin
 
 private var cannonScript: CannonAI;		// access CannonAI script
 private var guiScript: MainGUI;			// access MainGUI script
-private var moveX;
-private var moveY;
-private var checkX : boolean = false;
-private var checkY : boolean = false;
+private var stopMovingV : boolean = false;
+private var stopMovingH : boolean = false;
 private var xPos = Screen.width*0.5;		// half screen width
 private var yPos = Screen.height*0.5;		// half screen height
 
-function Start(){
+function Start()
+{
+	GetGameobjects();	
+	GetScripts();
+}
+
+function GetGameobjects()
+{
 	cannonTarget = GameObject.FindGameObjectWithTag("Cannon");		//cannon object
-	if (cannonTarget == null){ print ("no cannon for PingPong"); }
+	if (cannonTarget == null)
+	{
+		Debug.Log("No cannon for PingPong");
+	}
+}
+
+function GetScripts()
+{
 	cannonScript = cannonTarget.GetComponent(CannonAI);		// script for cannon
-	
 	guiScript = Camera.main.GetComponent(MainGUI);	// get the script
 }
 
@@ -28,39 +37,57 @@ function OnGUI() {
 	
 	if(guiScript.endRound == false)
 	{
-		if (checkX == false){
-			if (GUI.Button(Rect(90, (yPos * 2) - 210, 120, 120), "Stop\nVertical", GUI.skin.GetStyle("Octogon Button"))){
-				checkX = true;
+		if (stopMovingV == false)
+		{
+			if (GUI.Button(Rect(90, (yPos * 2) - 210, 120, 120), "Stop\nVertical", GUI.skin.GetStyle("Octagon Button")))
+			{
+				stopMovingV = true;
 			}
 		}
-		if (checkX == true && checkY == false){
-			if (GUI.Button(Rect(90, (yPos * 2) - 210, 120, 120), "Stop\nHorizontal", GUI.skin.GetStyle("Octogon Button"))){
-				checkY = true;
+		if (stopMovingV == true && stopMovingH == false)
+		{
+			if (GUI.Button(Rect(90, (yPos * 2) - 210, 120, 120), "Stop\nHorizontal", GUI.skin.GetStyle("Octagon Button")))
+			{
+				stopMovingH = true;
 			}
 		}
 	}
 }
 
-function Update() {
-	moveX = guiScript.xRotSlider;
-	moveY = guiScript.yRotSlider;
-	
-	if (cannonScript.gameOver != true){
-		if (checkX == false && checkY == false){
-			guiScript.xRotSlider = 10 + Mathf.PingPong(15*Time.time, 80);
+function Update() 
+{	
+	if (cannonScript.gameOver != true)
+	{
+		if (stopMovingH == false && stopMovingV == false)
+		{
+			guiScript.verticalSlider = 10 + Mathf.PingPong(15*Time.time, 80);
 		}
-		if (checkY == false && checkX == true){
-			guiScript.yRotSlider = 45 - Mathf.PingPong(15*Time.time, 90);
+		if (stopMovingH == false && stopMovingV == true)
+		{
+			guiScript.horizontalSlider = 45 - Mathf.PingPong(15*Time.time, 90);
 		}
-		if (checkX == true && checkY == true){
+		if (stopMovingH == true && stopMovingV == true)
+		{
 			cannonScript.FireCannon();
-			//checkX = false;
 			MakeFalse();
 		}
 	}
 }
 
-function MakeFalse () {
-	checkX = false;
-	checkY = false;
+function MakeFalse () 
+{
+	stopMovingV = false;
+	stopMovingH = false;
+}
+
+function CheckMoving() : boolean
+{
+	if(stopMovingH && stopMovingV)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

@@ -1,19 +1,16 @@
 #pragma strict
 // Robert Lorenzo
-// Touch Controls for JAAG
-// for Senior Project 
-// Nov 2013
+// Touch Controls for JAAG mobile
 
 private var guiScript: MainGUI;			// this is used to access the GUI script
-private var deltaY : float;
-private var deltaX : float;
-var customSkin: GUISkin;		// custom GUI skin
 
-function Start () {
+function Start () 
+{
 	guiScript = Camera.main.GetComponent(MainGUI);	// get the script
 }
 
-function Update () {
+function Update () 
+{
 	if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
 	{
 		guiScript.horizontalSlider += Input.GetTouch(0).deltaPosition.x/10.0;

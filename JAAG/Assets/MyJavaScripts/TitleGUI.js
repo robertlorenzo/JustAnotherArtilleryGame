@@ -1,54 +1,62 @@
 #pragma strict
 // Robert Lorenzo
-// July 2013
-// GUI for title screen to cannon firing game
-// for Senior Project Preperation
+// GUI for title screen to JAAG
 
 var customSkin : GUISkin;
-private var screenX : float = Screen.width * 0.5;
-private var screen2X : float = Screen.width;
-private var screenY : float = Screen.height * 0.5;
-private var screen2Y : float = Screen.height;
+private var sw : float = Screen.width;
+private var sh : float = Screen.height;
 
-function Start () {
-	//print (screenX +", " + screenY);
-}
-
-function Update () {
-
-}
-
-function OnGUI(){
+function OnGUI()
+{
 	GUI.skin = customSkin;
-	
-	//This is for mobile
+	//This is for android
 	#if UNITY_ANDROID
-	GUI.Label(Rect(screenX - 100, screenY - 100, 200, 100), "J.A.A.G.\n(Just Another Artillery Game)", GUI.skin.GetStyle("Title"));
-	
-	if (GUI.Button(Rect(5, screenY + 50, screenX/2-10, 100), "Test\nyour\naim")){
-		Application.LoadLevel("PlayerControlled_NoShadows");
-	}
-	if (GUI.Button(Rect(screenX/2+5, screenY + 50, screenX/2-10, 100), "Test\nyour\nreflexes")){
-		Application.LoadLevel("PingPongControlled_NoShadows");
-	}
-	if (GUI.Button(Rect(screenX+5, screenY + 50, screenX/2-10, 100), "Instructions")){
-		Application.LoadLevel("Instructions");
-	}
-	if (GUI.Button(Rect(screenX*1.5+5, screenY + 50, screenX/2-10, 100), "Quit")){
-		Application.Quit();
-	}
+	TitleLabel();
+	TestYourAim(sw * 0.239583, "PlayerControlled_NoShadows");
+	TestYourReflexes(sw * 0.2552083, sw * 0.239583, "PingPongControlled_NoShadows");
+	Instructions(sw * 0.5052083, sw * 0.239583);
+	Quit();
 	#else
 	//This is for web
-	GUI.Label(Rect(0, screenY - 100, screen2X, 100), "J.A.A.G.\n(Just Another Artillery Game)", GUI.skin.GetStyle("Title"));
-	
-	if (GUI.Button(Rect(5, screenY + 50, screen2X/3-10, 100), "Test\nyour\naim")){
-		Application.LoadLevel("PlayerControlled");
+	TitleLabel();
+	TestYourAim(sw * 0.322916, "PlayerControlled");
+	TestYourReflexes(sw * 0.3385416, sw * 0.322916, "PingPongControlled");
+	Instructions(sw * 0.671875, sw * 0.322916);
+	#endif
+}
+
+function TitleLabel()
+{
+	GUI.Label(Rect(0, sh * 0.33333333, sw, sh * 0.17), "J.A.A.G.\n(Just Another Artillery Game)", GUI.skin.GetStyle("Title"));
+}
+
+function TestYourAim(width : float, level : String)
+{
+	if (GUI.Button(Rect(sw * 0.0052083, sh * 0.583, width, sh * 0.167), "Test\nyour\naim"))
+	{
+		Application.LoadLevel(level);
 	}
-	if (GUI.Button(Rect((screen2X/3)+5, screenY + 50, screen2X/3-10, 100), "Test\nyour\nreflexes")){
-		Application.LoadLevel("PingPongControlled");
+}
+
+function TestYourReflexes(tyrX : float, tyrW : float, level : String)
+{
+	if (GUI.Button(Rect(tyrX, sh * 0.583, tyrW, sh * 0.167), "Test\nyour\nreflexes"))
+	{
+		Application.LoadLevel(level);
 	}
-	if (GUI.Button(Rect(((screen2X/3)*2)+5, screenY + 50, screen2X/3-10, 100), "Instructions")){
+}
+
+function Instructions(iX : float, iW : float)
+{
+	if (GUI.Button(Rect(iX, sh * 0.583, iW, sh * 0.167), "Instructions"))
+	{
 		Application.LoadLevel("Instructions");
 	}
-	#endif
+}
+
+function Quit()
+{
+	if (GUI.Button(Rect(sw * 0.7552083, sh * 0.583, sw * 0.239583, sh * 0.167), "Quit")){
+		Application.Quit();
+	}
 }
